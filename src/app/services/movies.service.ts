@@ -64,11 +64,14 @@ export class MoviesService {
     return this.http.get<MovieCredits>(`${this.baseUrl}/movie/${id}/credits?api_key=${this.apiKey}`)
   }
   
-  searchMovies(page: number = 1) {
-    return this.http.get<MovieDto>(`${this.baseUrl}/movie/popular?page=${page}&api_key=${this.apiKey}`)
+  //search the movies and check if you searched for a specific movie
+  searchMovies(page: number, searchValue?: string) {        //? next to the parameter makes it optional
+    //set the uri to be wether search movie or the popular ones
+    const uri = searchValue ? '/search/movie' : '/movie/popular';
+
+    return this.http.get<MovieDto>(`${this.baseUrl}${uri}?page=${page}&query=${searchValue}&api_key=${this.apiKey}`)
     .pipe(switchMap(res => {  //with pipe we can stream what to return (specifically the list of movies that we are interested in only)
       return of(res.results);   //this will get only the first count number of items instead of the whole array
     }));
   }
-
 }

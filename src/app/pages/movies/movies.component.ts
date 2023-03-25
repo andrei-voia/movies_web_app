@@ -14,6 +14,10 @@ export class MoviesComponent implements OnInit {
   movies: Movie[] = [];
   genreId: string | null = null;
 
+  //used for the input of the search
+  searchValue: string | null = null;
+
+
   constructor(private moviesService: MoviesService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
@@ -25,13 +29,16 @@ export class MoviesComponent implements OnInit {
         this.getMoviesByGenre(genreId, 1);
       }
       else {
-        this.getPagedMovies(1)
+        this.getPagedMovies(1);
       }
     })
+
+    //this is how we initialize / give value to the input field in the template
+    // this.searchValue = "search for movies here, daddy xoxo :>";
   }
 
-  getPagedMovies(page: number) {
-    this.moviesService.searchMovies(page).subscribe(movies => {
+  getPagedMovies(page: number, searchKeyword?: string) {    //? next to the parameter makes it optional
+    this.moviesService.searchMovies(page, searchKeyword).subscribe(movies => {
       this.movies = movies;
     })
   }
@@ -51,7 +58,20 @@ export class MoviesComponent implements OnInit {
       this.getMoviesByGenre(this.genreId, pageNumber);
     }
     else {
-      this.getPagedMovies(pageNumber)
+      if(this.searchValue) {
+        this.getPagedMovies(pageNumber, this.searchValue)
+      }
+      else {
+        this.getPagedMovies(pageNumber)
+      }
     }
+  }
+
+  searchChanged() {
+    // console.log(this.searchValue);
+
+    //check if the search value is not null so we avoid error
+    if(this.searchValue)
+      this.getPagedMovies(1, this.searchValue)
   }
 }
