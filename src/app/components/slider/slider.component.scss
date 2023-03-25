@@ -58,12 +58,38 @@
             left: 5rem;
 
             .name {
-                font-size: 2.8rem;
+
+                @media screen and (min-width: 960px) {
+                    font-size: 2.8rem;
+                }
+
+                /* Start of Design for Small Desktops */
+                @media screen and (max-width: 960px) {
+                    font-size: 2.0rem;
+                }
+
+                /* Start of Design for Mobile */
+                @media screen and (max-width: 576px) {
+                    font-size: 1.8rem;
+                }
             }
 
             .meta {
-                font-size: 1.4rem;
                 color: $lightGray;
+                
+                @media screen and (min-width: 960px) {
+                    font-size: 1.4rem;
+                }
+
+                /* Start of Design for Small Desktops */
+                @media screen and (max-width: 960px) {
+                    font-size: 1.2rem;
+                }
+
+                /* Start of Design for Mobile */
+                @media screen and (max-width: 576px) {
+                    font-size: 1.1rem;
+                }
 
                 .info {
                     display: flex;
@@ -93,8 +119,22 @@
             }
 
             .desc {
-                font-size: 1.2rem;
-                line-height: 1.6;
+                @media screen and (min-width: 960px) {
+                    font-size: 1.2rem;
+                    line-height: 1.6;
+                }
+
+                /* Start of Design for Small Desktops */
+                @media screen and (max-width: 960px) {
+                    font-size: 1.05rem;
+                    line-height: 1.3;
+                }
+
+                /* Start of Design for Mobile */
+                @media screen and (max-width: 576px) {
+                    font-size: 0.9rem;
+                    line-height: 1.1;
+                }
             }
         }
     }
